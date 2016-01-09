@@ -1,0 +1,106 @@
+.accounts-ui-wrapper {
+    position: absolute;
+    top: 15px;
+    right: 90px;
+    font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 550px) {
+    .accounts-ui-wrapper {
+        font-size: 1rem;
+    }
+}
+
+.login-link-text {
+    color: white;
+}
+
+.login-link-text:hover {
+    color: #11BBFF;
+}
+
+#login-dropdown-list {
+    right: 3px;
+    left: auto;
+}
+
+#login-buttons .login-close-text {
+    float: right
+}
+
+.card-title {
+    font-size: 3rem;
+}
+
+@media only screen and (max-width: 550px) {
+    .card-title {
+        font-size: 1.5rem;
+    }
+}
+
+.matches * {
+    display: flex;
+    box-sizing: border-box;
+}
+
+.card {
+    width: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+
+@media only screen and (min-width: 550px) {
+    .card {
+        width: 250px;
+    }
+}
+
+@media only screen and (min-width: 1070px) {
+    .card {
+        width: 330px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+.card-content {
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+
+@font-face {
+	font-family: "Flaticon";
+	src: url("flaticon.eot");
+	src: url("flaticon.eot#iefix") format("embedded-opentype"),
+	url("flaticon.woff") format("woff"),
+	url("flaticon.ttf") format("truetype"),
+	url("flaticon.svg") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {
+	font-family: Flaticon;
+    font-style: normal;
+}
+.flaticon-ice46:before {
+	content: "\e000";
+}
+.flaticon-pool7:before {
+	content: "\e001";
+}
+.flaticon-soccer19:before {
+	content: "\e002";
+}
+.flaticon-stickman65:before {
+	content: "\e003";
+}
+.flaticon-tennis3:before {
+	content: "\e004";
+}
+.flaticon-worldgrid18:before {
+	content: "\e005";
+}
