@@ -2,7 +2,7 @@
 
 A small exercise in building a website that collects users votes on sports matches. Available at:
 
-``
+`http://sportspoll.meteor.com/`
 
 Feel free to create users (no email verification required).
 
