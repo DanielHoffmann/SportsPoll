@@ -1,12 +1,16 @@
+
+//variables not declared with var or let are considered global to the application
 Matches = new Mongo.Collection("matches");
 
 if (Meteor.isClient) {
     Accounts.ui.config({
         passwordSignupFields: "USERNAME_ONLY"
     });
+
     Meteor.startup(function () {
-        let poll = <Poll />
-        ReactDOM.render(poll, document.getElementById('root'));
+        //starts the React views
+        let polls = <Polls />
+        ReactDOM.render(polls, document.getElementById('root'));
     });
 } else if (Meteor.isServer) {
     let fetchData = () => {
@@ -23,7 +27,7 @@ if (Meteor.isClient) {
                         let emptyVotes = {
                             homeVotes: [],
                             awayVotes: [],
-                            tieVotes: [],
+                            drawVotes: [],
                         }
                         //inserting matches into the MongoDB Collection
                         //if the match is already in the Collection, only update it (without changing the votes)
@@ -39,34 +43,44 @@ if (Meteor.isClient) {
                 } else {
                     console.log(result);
                 }
-
-                
+                Meteor.setTimeout(fetchData, 30000); //periodically updates the data
             }
         );
     }
 
     fetchData();
+
+
     Meteor.publish("Matches", function () {
         return Matches.find({});
     });
 }
 
+
+// utility function called by Meteor.methods
 let vote = function(_id, propertyName) {
     let userId = Meteor.userId()
     if (userId == null)
         throw new Error('User not logged');
-    let pull = {
-        homeVotes: userId,
-        awayVotes: userId,
-        tieVotes: userId,
-    };
-    delete pull[propertyName];
+
     let addToSet = {
         [propertyName]: userId,
     };
+
+    let pull = {
+        homeVotes: userId,
+        awayVotes: userId,
+        drawVotes: userId,
+    };
+    delete pull[propertyName]; //can't pull and add to the same array in a single operation
+
     Matches.update({ _id: _id}, {
-        $pull: pull, //removes the userID from all vote arrays
-        $addToSet: addToSet, //adds the userID into the propertyName array if it is not already there
+        //removes the userID from vote arrays
+        $pull: pull,
+
+        //adds the userID into the propertyName array if it is not already there
+        //$addToSet only adds if the element is not already in the array
+        $addToSet: addToSet,
     });
 };
 
@@ -79,7 +93,19 @@ Meteor.methods({
         vote(_id, "awayVotes");
     },
 
-    voteTie(_id) {
-        vote(_id, "tieVotes");
+    voteDraw(_id) {
+        vote(_id, "drawVotes");
+    },
+
+    //used for testing
+    insertMatch(match) {
+        //TODO check if in dev mode
+        return Matches.insert(match);
+    },
+
+    //used for testing
+    removeByMatchId(id) {
+        //TODO check if in dev mode
+        Matches.remove({id});
     },
 });

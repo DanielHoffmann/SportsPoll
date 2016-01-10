@@ -1,5 +1,5 @@
 
-
+// component for the login UI
 let AccountsUIWrapper = React.createClass({
     componentDidMount() {
         // Use Meteor Blaze instead of React to render login buttons
@@ -18,8 +18,9 @@ let AccountsUIWrapper = React.createClass({
 
 
 
-Poll = React.createClass({
+Polls = React.createClass({
     mixins: [ReactMeteorData],
+
 
     getInitialState() {
         let sportsEnabled = {};
@@ -38,7 +39,7 @@ Poll = React.createClass({
 
     renderMatches() {
         return this.data.matches.map((match, index) => {
-            if (this.state[match.sport])
+            if (this.state[match.sport]) //renders only the sports that are enabled
                 return <Match key={match._id} match={match} index={index} />;
             else
                 return null;
@@ -51,7 +52,7 @@ Poll = React.createClass({
         });
     },
 
-    drawButtons() {
+    drawFilters() {
         let btns = [];
         for (let key of Object.keys(sportsMapper.icons)) {
             let cssClasses = sportsMapper.colors[key] + " btn-floating hoverable ";
@@ -96,7 +97,7 @@ Poll = React.createClass({
                         position: "relative",
                         top: 10,
                     }}>
-                        {this.drawButtons()}
+                        {this.drawFilters()}
                     </ul>
                 </div>
 
@@ -112,7 +113,7 @@ Poll = React.createClass({
 
                 <footer className="page-footer teal">
                     <div className="footer-copyright">
-                        <div className="container">
+                        <div className="container" style={{ fontSize: 25, fontWeight: "bold"}}>
                             Made by Daniel Hoffmann Bernardes
                         </div>
                     </div>

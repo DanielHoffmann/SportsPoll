@@ -1,5 +1,6 @@
 
 
+//map that maps sports names into CSS classes for colors and icons
 sportsMapper = {
     icons: {
         FOOTBALL: "flaticon-soccer19",

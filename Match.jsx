@@ -1,6 +1,6 @@
 // Task component - represents a single todo item
 
-
+//shows a single scoreboard with the team name on top of it
 let Score = React.createClass({
     render() {
         let props = this.props;
@@ -60,8 +60,8 @@ Match = React.createClass({
         Meteor.call("voteHome", this.props.match._id);
     },
 
-    voteTie() {
-        Meteor.call("voteTie", this.props.match._id);
+    voteDraw() {
+        Meteor.call("voteDraw", this.props.match._id);
     },
 
     voteAway() {
@@ -72,7 +72,7 @@ Match = React.createClass({
         let match = this.props.match;
         let homeActive = false;
         let awayActive = false;
-        let tieActive = false;
+        let drawActive = false;
         let userId = Meteor.userId();
         let userLogged = userId != null;
 
@@ -80,8 +80,8 @@ Match = React.createClass({
             awayActive = true;
         else if (match.homeVotes.indexOf(userId) !== -1)
             homeActive = true;
-        else if (match.tieVotes.indexOf(userId) !== -1)
-            tieActive = true;
+        else if (match.drawVotes.indexOf(userId) !== -1)
+            drawActive = true;
 
         return (
             <div className={sportsMapper.colors[match.sport] + " card"} style={{height: 300}}>
@@ -97,7 +97,7 @@ Match = React.createClass({
                     </div>
                     <div style={{width: "100%", alignItems: "flex-end", flex: 1}}>
                         <Score name={match.homeName} votes={match.homeVotes.length} onClick={this.voteHome} active={homeActive} userLogged={userLogged}/>
-                        <Score name="TIE" votes={match.tieVotes.length} onClick={this.voteTie} active={tieActive} userLogged={userLogged} />
+                        <Score name="Draw" votes={match.drawVotes.length} onClick={this.voteDraw} active={drawActive} userLogged={userLogged} />
                         <Score name={match.awayName} votes={match.awayVotes.length} onClick={this.voteAway} active={awayActive} userLogged={userLogged} />
                     </div>
                 </div>
